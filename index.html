@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <script src="./main.js" defer></script>
+</head>
+<body>
+    <div class="screen-container">
+        <div class="nav"></div>
+        <div class="sidebar">
+            <div class="logo"></div>
+            <div class="time-period-container">
+                <h2 class="sidebar-heading">My Tasks</h2>
+                <ul id="sidebar-list">
+                    <li class="sidebar-list-item">
+                        <span>My Day</span>
+                    </li>
+                    <li class="sidebar-list-item">
+                        <span>My Week</span>
+                    </li>
+                    <li class="sidebar-list-item">
+                        <span>My Month</span>
+                    </li>
+                    <li class="sidebar-list-item">
+                        <span>Next Month</span>
+                    </li>
+                    <li class="sidebar-list-item">
+                        <span>Longterm</span>
+                    </li>
+                </ul>
+                <button class="open-task-modal">+ Add Task</button>
+                <dialog class="task-modal">
+                    <form class="task-form"></form>
+                    <button type="submit" class="close-task-modal">Add Task</button>
+                </dialog>
+            </div>
+            <div class="folder-container">
+                <h2 class="sidebar-heading">Folders</h2>
+                <ul class="sidebar-list">
+                    <li class="sidebar-list-item">
+                        <span>Placeholder Folder</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="task-container"></div>
+    </div>
+</body>
+</html>
