@@ -1,0 +1,20 @@
+{
+  "name": "to-do-list",
+  "version": "1.0.0",
+  "description": "This project is part of TOP Course and should combine many learned things. The goal is to create a To-Do List where you can add, check and filter To-Dos depending on date, importance, project, etc.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^6.10.0",
+    "style-loader": "^3.3.4",
+    "webpack": "^5.90.1",
+    "webpack-cli": "^5.1.4"
+  }
+}
