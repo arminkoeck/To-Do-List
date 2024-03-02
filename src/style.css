@@ -24,6 +24,10 @@ body {
     grid-column: 1 / 2;
 }
 
+.folder-container {
+    padding-bottom: 20px;
+}
+
 .task-container {
     background-color: #fbfb5e;
     grid-row: 2 / 3;
@@ -72,3 +76,51 @@ li {
 li span {
     margin: 0 30px 0 0;
 }
+
+.task-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px 50px;
+    padding: 30px;
+}
+
+.task-background {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 0px 12px 20px -10px rgb(0, 0, 0, 0.3);
+    border-radius: 5px;
+    max-height: 400px;
+}
+
+.task-content {
+    padding: 20px;
+}
+
+.task-priority {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px 5px 0px 0px;
+    display: grid;
+    grid-template: 1fr / 1fr 30px;
+    grid-gap: 20px;
+}
+
+.high-priority {
+    background-color: red;
+}
+
+.medium-priority {
+    background-color: blue;
+}
+
+.low-priority {
+    background-color: green;
+}
+
+.delete-button {
+    background-color: pink;
+    color: red;
+    border: none;
+}
+

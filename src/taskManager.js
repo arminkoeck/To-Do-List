@@ -1,6 +1,7 @@
 
 
-const taskArray = [];
+let taskArray = [];
+const taskFolderMap = new Map();
 
 function addTaskToArray (task) {
     taskArray.unshift(task);
@@ -10,37 +11,42 @@ export function getTasks () {
     return taskArray;
 }
 
-export function removeTaskFromArray (task) {
-    const index = taskArray.indexOf(task);
-    if (index !== -1) {
-        taskArray.splice(index, 1);
-    }
+export function removeTaskFromArray (taskId) {
+    taskArray = taskArray.filter((task) => task.id !== parseInt(taskId));
 }
 
+
+// nicht ideal. wenn ich .tasks im folderManager umbenenne, funktioniert der Code hier nicht mehr
+export function removeTaskFromFolders(taskId, folders) {
+    folders.forEach((folder) => {
+        folder.tasks = folder.tasks.filter((task) => task.id !== parseInt(taskId));
+    });
+};
+
+let nextTaskId = 1;
+
 export default function createTask (name, description, priority) {
-    const newTask = { name, description, priority };
+    const newTask = { name, description, priority, id: nextTaskId++};
     addTaskToArray(newTask);
 };
 
 
-// sollte nicht exportiert werden, sondern nur changeTaskFolder, damit man ein To-Do nicht in mehrere Folder geben kann.
-// -> man müsste gleich bei der Erstellung des Tasks einen Ordner zuweisen. Was wenn man das nicht möchte oder keinen Ordner hat?
-// -> man bräuchte einen allgemeinen Ordner, wo Tasks von Grund auf drinnen sind, der darf dann aber nicht löschbar sein -> Umsetzung recherchieren
-// -> Vor dem Löschen eines Arrays soll getestet werden, ob es der Standard Array ist. Dieser sollte nicht gelöscht werden können
-// -> Falls ein Array gelöscht wird, werden alle Objekte zu dem Standard Array umgeleitet.
-// -> Werden Tasks neu erstellt, sollten sie auch dem Standard Array zugeordnet werden. (Folder könnte "General" heißen)
-
-export function addTaskToFolder (task, folder) {
-    folder.unshift(task);
+export function addNewTask(e) {
+    e.preventDefault();
+    let valueArray = []
+    let data = new FormData(taskForm)
+    for (let v of data) {
+        valueArray.push(v[1])
+    };
+    createTask(...valueArray);
 };
 
 
-function removeTaskFromFolder (task, folder) {
-    const index = folder.indexOf(task);
-    if (index !== -1) {
-        folder.splice(index, 1);
-    }
-}
+
+// export function addTaskToFolder (task, folder) {
+//     folder.unshift(task);
+// };
+
 
 export function changeTaskFolder (task, oldFolder, newFolder) {
     removeTaskFromFolder(task, oldFolder);
