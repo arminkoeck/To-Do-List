@@ -32,15 +32,33 @@
                 </ul>
                 <button class="open-task-modal">+ Add Task</button>
                 <dialog class="task-modal">
-                    <form class="task-form"></form>
-                    <button type="submit" class="close-task-modal">Add Task</button>
+                    <form class="task-form" id="taskForm">
+                        <label for="task-name">Task Name</label>
+                        <input type="text" name="task-name" id="task-name" required>
+                        <label for="task-description">Description</label>
+                        <input type="text" name="task-description" id="task-description" required>
+                        <fieldset name="Wichtigkeit">
+                            <legend>Task Priority</legend>
+                            <input type="radio" id="low" name="priority" value="low" required>
+                            <label for="low">Low</label>
+                            <input type="radio" id="medium" name="priority" value="medium" required>
+                            <label for="medium">Medium</label>
+                            <input type="radio" id="high" name="priority" value="high" required>
+                            <label for="high">High</label>
+                        </fieldset>
+                        <label for="form-folders">Choose a Folder:</label>
+                        <select id="form-folders" name="form-folders">
+                        </select>
+                        <button type="submit" class="add-task-modul-button">Add Task</button>
+                    </form>
+                    <button class="close-task-modal">x</button>
                 </dialog>
             </div>
             <div class="folder-container">
                 <h2 class="sidebar-heading">Folders</h2>
                 <ul class="sidebar-list">
                     <li class="sidebar-list-item">
-                        <span>Placeholder Folder</span>
+                        <span>All Tasks</span>
                     </li>
                 </ul>
             </div>
