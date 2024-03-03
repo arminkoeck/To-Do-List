@@ -3,6 +3,12 @@
 let taskArray = [];
 const taskFolderMap = new Map();
 
+// Eigenes file für die Map Funktionen? Oder zwischen file für die task & folder funktionen
+// export function getMap() {
+//     return taskFolderMap
+// }
+
+// also changes the task Array
 function addTaskToArray (task) {
     taskArray.unshift(task);
 };
@@ -17,41 +23,45 @@ export function removeTaskFromArray (taskId) {
 
 
 // nicht ideal. wenn ich .tasks im folderManager umbenenne, funktioniert der Code hier nicht mehr
-export function removeTaskFromFolders(taskId, folders) {
-    folders.forEach((folder) => {
-        folder.tasks = folder.tasks.filter((task) => task.id !== parseInt(taskId));
-    });
-};
+// export function removeTaskFromFolders(taskId, folders) {
+//     folders.forEach((folder) => {
+//         folder.tasks = folder.tasks.filter((task) => task.id !== parseInt(taskId));
+//     });
+// };
 
 let nextTaskId = 1;
 
-export default function createTask (name, description, priority) {
+
+export function addTaskToFolder (taskId, folderId) {
+    taskFolderMap.set(taskId, folderId)
+}
+
+export function removeTaskFromFolder (taskId) {
+    taskFolderMap.delete(taskId)
+}
+
+export function createTask (name, description, priority, folderId) {
     const newTask = { name, description, priority, id: nextTaskId++};
     addTaskToArray(newTask);
+    console.log(newTask.id)
+    console.log(folderId);
+    addTaskToFolder(newTask.id, folderId)
 };
 
-
-export function addNewTask(e) {
+export default function addNewTask(e) {
     e.preventDefault();
-    let valueArray = []
-    let data = new FormData(taskForm)
-    for (let v of data) {
-        valueArray.push(v[1])
-    };
-    createTask(...valueArray);
+    const name = document.querySelector("#task-name").value;
+    const description = document.querySelector("#task-description").value;
+    const priority = document.querySelector('input[name="priority"]:checked').value;
+    const folderId = document.querySelector("#form-folders").value;
+    createTask(name, description, priority, folderId);
 };
 
 
+export function getFolderTasks(allTasksArray, folderId) {
+    return allTasksArray.filter(task => parseInt(taskFolderMap.get(task.id)) === parseInt(folderId));
+};
 
-// export function addTaskToFolder (task, folder) {
-//     folder.unshift(task);
-// };
-
-
-export function changeTaskFolder (task, oldFolder, newFolder) {
-    removeTaskFromFolder(task, oldFolder);
-    addTaskToFolder(task, newFolder);
-}
 
 export function changePriority (task, priority) {
     task.priority = priority;

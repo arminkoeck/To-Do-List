@@ -71,7 +71,10 @@ export function openTaskModal () {
 export function closeTaskModalByClick () {
     const modalCloseButton = document.querySelector(".close-task-modal")
     const modal = document.querySelector(".task-modal");
-    modalCloseButton.addEventListener("click", () => modal.close());
+    modalCloseButton.addEventListener("click", () => {
+        modal.close();
+        resetTaskModal();
+    });
 };
 
 export function closeTaskModal () {

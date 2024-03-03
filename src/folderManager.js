@@ -25,18 +25,17 @@ export function removeFolder (folder) {
 let nextFolderId = 1;
 
 export default function createFolder (name) {
-    const newFolder = { name, Id: nextFolderId++ }
+    const newFolder = { name, id: nextFolderId++ }
     addFolderToArray(newFolder);
 };
 
+
 function getFolderFormOptions () {
-
     const optionContainer = document.querySelector("#form-folders");
-
     folderArray.forEach((option) => {
         const optionElement = document.createElement("option");
         optionElement.textContent = option.name;
-        optionElement.value = option.name;
+        optionElement.value = option.id;
         optionContainer.appendChild(optionElement);
     });
 }

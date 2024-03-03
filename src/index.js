@@ -1,8 +1,8 @@
 
 import './style.css';
 
-import createTask from "./taskManager.js";
-import { getTasks, removeTaskFromArray, removeTaskFromFolders, addTaskToFolder, changeTaskFolder, changePriority, addNewTask } from './taskManager.js';
+import addNewTask from "./taskManager.js";
+import { getTasks, removeTaskFromArray, removeTaskFromFolders, addTaskToFolder, changeTaskFolder, changePriority, createTask, getFolderTasks } from './taskManager.js';
 import createFolder from "./folderManager.js";
 import { getFolders, removeFolder } from "./folderManager.js";
 import { displayFolders, displayTasks, openTaskModal, closeTaskModal, closeTaskModalByClick, resetTaskModal, clearTasks } from "./domFunctions.js";
@@ -48,12 +48,20 @@ taskForm.onsubmit = (e) => {
 document.addEventListener("taskDelete", function(event) {
     const taskId = event.detail.taskId;
     removeTaskFromArray(taskId);
-    removeTaskFromFolders(taskId, getFolders()); //funktioniert ja nur, wenn ich auf den delete Button drücke, nicht wenn ich den Folder ändern möchte
+    // removeTaskFromFolders(taskId, getFolders()); //funktioniert ja nur, wenn ich auf den delete Button drücke, nicht wenn ich den Folder ändern möchte
     clearTasks();
     displayTasks(getTasks());
     console.log(getTasks());
     console.log(getFolders());
 })
+
+
+const testButton = document.querySelector("#test")
+testButton.addEventListener("click", () => {
+    clearTasks();
+    addTaskToFolder(2, 2)
+    displayTasks(getFolderTasks(getTasks(), 2))
+});
 
 
 // after deleting a task, the same folder should be reloaded with the rest of the tasks and not the all tasks array
