@@ -8,9 +8,7 @@
 </head>
 <body>
     <div class="screen-container">
-        <div class="nav">
-            <button id="test">test</button>
-        </div>
+        <div class="nav"></div>
         <div class="sidebar">
             <div class="logo"></div>
             <div class="time-period-container">
@@ -51,21 +49,42 @@
                         <label for="form-folders">Choose a Folder:</label>
                         <select id="form-folders" name="form-folders">
                         </select>
-                        <button type="submit" class="add-task-modul-button">Add Task</button>
+                        <label for="task-deadline">Choose a Deadline:</label>
+                        <input type="date" name="task-deadline" id="task-deadline" required>
+                        <button type="submit" class="add-task-modal-button">Add Task</button>
                     </form>
                     <button class="close-task-modal">x</button>
                 </dialog>
             </div>
             <div class="folder-container">
                 <h2 class="sidebar-heading">Folders</h2>
-                <ul class="sidebar-list">
-                    <li class="sidebar-list-item">
+                <ul class="sidebar-list" id="folder-sidebar-container">
+                    <li class="sidebar-list-item" id="all-task-folder" data-folder-id="0">
                         <span>All Tasks</span>
                     </li>
+                    <div class="folder-array-container"></div>
                 </ul>
+                <button class="open-folder-modal">+ Add Folder</button>
+                <dialog class="folder-modal">
+                    <form class="folder-form" id="folderForm">
+                        <label for="folder-name">Task Name</label>
+                        <input type="text" name="folder-name" id="folder-name" required>
+                        <button type="submit" class="add-folder-modal-button">Add Folder</button>
+                    </form>
+                    <button class="close-folder-modal">x</button>
+                </dialog>
             </div>
         </div>
         <div class="task-container"></div>
+        <dialog class="change-folder-modal">
+            <form class="change-folder-form" id="changeFolderForm">
+                <label for="change-folder">New Folder</label>
+                <select id="change-folder" name="change-folder">
+                </select>
+                <button type="submit" class="change-folder-modal-button">Change Folder</button>
+            </form>
+            <button class="close-change-folder-modal">x</button>
+        </dialog>
     </div>
 </body>
 </html>
