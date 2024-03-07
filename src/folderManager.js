@@ -1,6 +1,6 @@
 
 
-const folderArray = [];
+let folderArray = [];
 
 function addFolderToArray (folder) {
     folderArray.push(folder);
@@ -10,28 +10,28 @@ export function getFolders () {
     return folderArray;
 }
 
-export function removeFolder (folder) {
-    const index = folderArray.indexOf(folder);
-    if (index !== -1) {
-        folderArray.splice(index, 1);
-    };
-};
 
-// export default function createFolder (name) {
-//     const newFolder = { name, tasks: [] }
-//     addFolderToArray(newFolder);
-// };
+export function removeFolderFromArray (folderId) {
+    folderArray = folderArray.filter((folder) => folder.id !== parseInt(folderId))
+}
+
 
 let nextFolderId = 1;
 
-export default function createFolder (name) {
+export function createFolder (name) {
     const newFolder = { name, id: nextFolderId++ }
     addFolderToArray(newFolder);
 };
 
+export default function addNewFolder (e) {
+    e.preventDefault();
+    const name = document.querySelector("#folder-name").value;
+    createFolder(name);
+};
 
-function getFolderFormOptions () {
-    const optionContainer = document.querySelector("#form-folders");
+
+function getFolderFormOptions (formId) {
+    const optionContainer = document.querySelector(formId);
     folderArray.forEach((option) => {
         const optionElement = document.createElement("option");
         optionElement.textContent = option.name;
@@ -40,8 +40,8 @@ function getFolderFormOptions () {
     });
 }
 
-function clearFolderFormOptions () {
-    const optionContainer = document.querySelector("#form-folders");
+function clearFolderFormOptions (formId) {
+    const optionContainer = document.querySelector(formId);
     optionContainer.textContent = "";
     const noneOption = document.createElement("option");
     noneOption.textContent = "None";
@@ -49,8 +49,16 @@ function clearFolderFormOptions () {
     optionContainer.appendChild(noneOption);
 }
 
-const modalOpenButton = document.querySelector(".open-task-modal")
-modalOpenButton.addEventListener("click", () => {
-    clearFolderFormOptions();
-    getFolderFormOptions();
-});
+
+export function createFolderFormOptions (formId) {
+    clearFolderFormOptions(formId);
+    getFolderFormOptions(formId);
+};
+
+
+// const taskModalOpenButton = document.querySelector(".open-task-modal")
+// taskModalOpenButton.addEventListener("click", () => {
+//     clearFolderFormOptions();
+//     getFolderFormOptions();
+// });
+

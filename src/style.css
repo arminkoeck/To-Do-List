@@ -46,12 +46,12 @@ li {
     padding: 10px 30px;
 }
 
-.sidebar .open-task-modal {
+.sidebar .open-task-modal, .sidebar .open-folder-modal {
     margin-left: 30px;
     margin-top: 20px;
 }
 
-.open-task-modal {
+.open-task-modal, .open-folder-modal {
     border: 2px solid red;
     border-radius: 3px;
     background-color: rgb(255, 185, 185);
@@ -118,9 +118,16 @@ li span {
     background-color: green;
 }
 
-.delete-button {
+.task-delete-button {
     background-color: pink;
     color: red;
     border: none;
 }
 
+.sidebar-list-item:hover {
+    background-color:#bfefe1
+}
+
+.active-sidebar-item {
+    background-color: #c29bee
+}
