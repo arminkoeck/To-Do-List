@@ -14,20 +14,23 @@
             <div class="time-period-container">
                 <h2 class="sidebar-heading">My Tasks</h2>
                 <ul id="sidebar-list">
-                    <li class="sidebar-list-item">
+                    <li class="sidebar-list-item" id="my-day-folder" data-folder-id="1">
                         <span>My Day</span>
                     </li>
-                    <li class="sidebar-list-item">
+                    <li class="sidebar-list-item" id="my-week-folder" data-folder-id="2">
                         <span>My Week</span>
                     </li>
-                    <li class="sidebar-list-item">
+                    <li class="sidebar-list-item" id="my-month-folder" data-folder-id="3">
                         <span>My Month</span>
                     </li>
-                    <li class="sidebar-list-item">
+                    <li class="sidebar-list-item" id="next-month-folder" data-folder-id="4">
                         <span>Next Month</span>
                     </li>
-                    <li class="sidebar-list-item">
+                    <li class="sidebar-list-item" id="longterm-folder" data-folder-id="5">
                         <span>Longterm</span>
+                    </li>
+                    <li class="sidebar-list-item" id="overdue-folder" data-folder-id="6">
+                        <span>Overdue</span>
                     </li>
                 </ul>
                 <button class="open-task-modal">+ Add Task</button>
@@ -36,7 +39,7 @@
                         <label for="task-name">Task Name</label>
                         <input type="text" name="task-name" id="task-name" required>
                         <label for="task-description">Description</label>
-                        <input type="text" name="task-description" id="task-description" required>
+                        <textarea name="task-description" id="task-description" rows="6" cols="50" required></textarea>
                         <fieldset name="Wichtigkeit">
                             <legend>Task Priority</legend>
                             <input type="radio" id="low" name="priority" value="low" required>
@@ -79,11 +82,20 @@
         <dialog class="change-folder-modal">
             <form class="change-folder-form" id="changeFolderForm">
                 <label for="change-folder">New Folder</label>
-                <select id="change-folder" name="change-folder">
-                </select>
+                <select id="change-folder" name="change-folder"></select>
+                <div id="current-folder"></div>
                 <button type="submit" class="change-folder-modal-button">Change Folder</button>
             </form>
             <button class="close-change-folder-modal">x</button>
+        </dialog>
+        <dialog class="change-deadline-modal">
+            <form class="change-deadline-form" id="changeDeadlineForm">
+                <label for="change-deadline">New Deadline</label>
+                <input type="date" name="change-deadline" id="change-deadline" required>
+                <div id="current-deadline"></div>
+                <button type="submit" class="change-deadline-modal-button">Change Deadline</button>
+            </form>
+            <button class="close-change-deadline-modal">x</button>
         </dialog>
     </div>
 </body>

@@ -69,11 +69,17 @@ export function displayTasks (array) {
         const description = document.createElement("p")
         description.textContent = task.description;
 
-        const deadlineContainer = document.createElement("p");
-        const deadlineDay = task.deadline.getDay();
-        const deadlineMonth = task.deadline.toLocaleString('de-DE', { month: 'long' });
-        const deadlineYear = task.deadline.getFullYear();
-        deadlineContainer.textContent = "Deadline: " + deadlineDay + ". " + deadlineMonth + ", " + deadlineYear;
+        const deadlineContainer = document.createElement("div");
+        deadlineContainer.classList.add("deadline-container");
+
+
+        const deadlineDateContainer = document.createElement("span");
+        const deadlineDate = getDateValues(task.deadline);
+        deadlineDateContainer.textContent = "Deadline: " + deadlineDate[0] + ". " + deadlineDate[1] + ", " + deadlineDate[2] + " | ";
+
+        const weekNumber = document.createElement("span");
+        weekNumber.textContent = "CW: " + getWeek(task.deadline);
+        weekNumber.classList.add("week-number");
 
         const changeFolderButton = document.createElement("button");
         changeFolderButton.textContent = "Change Folder";
@@ -85,18 +91,46 @@ export function displayTasks (array) {
             document.dispatchEvent(changeFolderEvent);
         });
 
+        const changeDeadlineButton = document.createElement("button");
+        changeDeadlineButton.textContent = "Change Deadline";
+        changeDeadlineButton.classList.add("change-deadline-button");
+        changeDeadlineButton.setAttribute('data-task-id', task.id);
+        changeDeadlineButton.addEventListener("click", function () {
+            const taskId = this.dataset.taskId;
+            const changeDeadlineButton = new CustomEvent("changeDeadline", {detail: {taskId}})
+            document.dispatchEvent(changeDeadlineButton);
+        });
+
+
 
         container.appendChild(background);
         background.appendChild(priority);
         background.appendChild(taskContent);
         priority.appendChild(taskName);
         priority.appendChild(taskDeleteButton);
+        deadlineContainer.appendChild(deadlineDateContainer);
+        deadlineContainer.appendChild(weekNumber);
         taskContent.appendChild(description);
         taskContent.appendChild(deadlineContainer);
         taskContent.appendChild(changeFolderButton);
+        taskContent.appendChild(changeDeadlineButton);
     });
 };
 
+// shouldnt be here?
+export function getDateValues (date) {
+    const day = date.getDate();
+    const month = date.toLocaleString('de-DE', { month: 'long' });
+    const year = date.getFullYear();
+    return [day, month, year];
+}
+
+export function getDateValuesInNumbers (date) {
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    return [day, month, year];
+}
 
 export function getSidebarEffects () {
     const sidebarItems = document.querySelectorAll(".sidebar-list-item");
@@ -146,4 +180,13 @@ export function resetModal (formClass) {
 export function activateAllTaskFolder () {
     const allTasksFolder = document.querySelector("#all-task-folder");
     allTasksFolder.classList.add("active-sidebar-item");
+}
+
+export function getWeek(date) {
+    const tempDate = new Date(date.getTime());
+    const januaryFourth = new Date(tempDate.getFullYear(), 0, 4);
+    const januaryFourthDay = januaryFourth.getDay();
+    januaryFourth.setDate(januaryFourth.getDate() - (januaryFourthDay > 0 ? januaryFourthDay - 1 : 6));
+    const weekNumber = Math.ceil((((tempDate - januaryFourth) / 86400000) + januaryFourth.getDay() + 1) / 7);
+    return weekNumber;
 }
