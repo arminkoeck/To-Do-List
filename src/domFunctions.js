@@ -1,3 +1,10 @@
+import logoFile from "./Zengenda-Logo.png"
+
+const navBar = document.querySelector(".nav");
+const logo = new Image();
+logo.src = logoFile
+logo.classList.add("logo");
+navBar.appendChild(logo);
 
 export function displayFolders (array) {
     const container = document.querySelector("#folder-sidebar-container")
@@ -75,9 +82,9 @@ export function displayTasks (array) {
 
         const deadlineDateContainer = document.createElement("span");
         const deadlineDate = getDateValues(task.deadline);
-        deadlineDateContainer.textContent = "Deadline: " + deadlineDate[0] + ". " + deadlineDate[1] + ", " + deadlineDate[2] + " | ";
+        deadlineDateContainer.textContent = "Deadline: " + deadlineDate[0] + ". " + deadlineDate[1] + ", " + deadlineDate[2];
 
-        const weekNumber = document.createElement("span");
+        const weekNumber = document.createElement("div");
         weekNumber.textContent = "CW: " + getWeek(task.deadline);
         weekNumber.classList.add("week-number");
 
@@ -101,23 +108,26 @@ export function displayTasks (array) {
             document.dispatchEvent(changeDeadlineButton);
         });
 
+        const buttonContainer = document.createElement("div");
+        buttonContainer.classList.add("button-container");
 
 
         container.appendChild(background);
         background.appendChild(priority);
         background.appendChild(taskContent);
+        background.appendChild(deadlineContainer);
+        background.appendChild(buttonContainer);
         priority.appendChild(taskName);
         priority.appendChild(taskDeleteButton);
         deadlineContainer.appendChild(deadlineDateContainer);
         deadlineContainer.appendChild(weekNumber);
+        buttonContainer.appendChild(changeDeadlineButton);
+        buttonContainer.appendChild(changeFolderButton);
         taskContent.appendChild(description);
-        taskContent.appendChild(deadlineContainer);
-        taskContent.appendChild(changeFolderButton);
-        taskContent.appendChild(changeDeadlineButton);
     });
 };
 
-// shouldnt be here?
+
 export function getDateValues (date) {
     const day = date.getDate();
     const month = date.toLocaleString('de-DE', { month: 'long' });
@@ -190,3 +200,4 @@ export function getWeek(date) {
     const weekNumber = Math.ceil((((tempDate - januaryFourth) / 86400000) + januaryFourth.getDay() + 1) / 7);
     return weekNumber;
 }
+

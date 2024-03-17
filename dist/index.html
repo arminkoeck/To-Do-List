@@ -10,7 +10,6 @@
     <div class="screen-container">
         <div class="nav"></div>
         <div class="sidebar">
-            <div class="logo"></div>
             <div class="time-period-container">
                 <h2 class="sidebar-heading">My Tasks</h2>
                 <ul id="sidebar-list">
@@ -36,29 +35,39 @@
                 <button class="open-task-modal">+ Add Task</button>
                 <dialog class="task-modal">
                     <form class="task-form" id="taskForm">
+                        <h3>New Task</h3>
                         <label for="task-name">Task Name</label>
                         <input type="text" name="task-name" id="task-name" required>
                         <label for="task-description">Description</label>
-                        <textarea name="task-description" id="task-description" rows="6" cols="50" required></textarea>
+                        <textarea name="task-description" id="task-description" rows="6" cols="50"></textarea>
                         <fieldset name="Wichtigkeit">
                             <legend>Task Priority</legend>
-                            <input type="radio" id="low" name="priority" value="low" required>
-                            <label for="low">Low</label>
-                            <input type="radio" id="medium" name="priority" value="medium" required>
-                            <label for="medium">Medium</label>
-                            <input type="radio" id="high" name="priority" value="high" required>
-                            <label for="high">High</label>
+                            <div>
+                                <input type="radio" id="low" name="priority" value="low" required>
+                                <label for="low">Low</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="medium" name="priority" value="medium" required>
+                                <label for="medium">Medium</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="high" name="priority" value="high" required>
+                                <label for="high">High</label>
+                            </div>                         
                         </fieldset>
                         <label for="form-folders">Choose a Folder:</label>
                         <select id="form-folders" name="form-folders">
                         </select>
                         <label for="task-deadline">Choose a Deadline:</label>
                         <input type="date" name="task-deadline" id="task-deadline" required>
-                        <button type="submit" class="add-task-modal-button">Add Task</button>
+                        <div class="dialog-buttons-container">
+                            <button type="submit" class="add-task-modal-button">Add Task</button>
+                            <button class="close-task-modal">Cancel</button>
+                        </div>
                     </form>
-                    <button class="close-task-modal">x</button>
                 </dialog>
             </div>
+                <div class="divider"></div>
             <div class="folder-container">
                 <h2 class="sidebar-heading">Folders</h2>
                 <ul class="sidebar-list" id="folder-sidebar-container">
@@ -70,32 +79,43 @@
                 <button class="open-folder-modal">+ Add Folder</button>
                 <dialog class="folder-modal">
                     <form class="folder-form" id="folderForm">
-                        <label for="folder-name">Task Name</label>
-                        <input type="text" name="folder-name" id="folder-name" required>
-                        <button type="submit" class="add-folder-modal-button">Add Folder</button>
+                        <h3>New Folder</h3>
+                        <div>
+                            <label for="folder-name">Task Name</label>
+                            <input type="text" name="folder-name" id="folder-name" required>
+                        </div>
+                        <div class="dialog-buttons-container">
+                            <button type="submit" class="add-folder-modal-button">Add Folder</button>
+                            <button class="close-folder-modal">Cancel</button>
+                        </div>
                     </form>
-                    <button class="close-folder-modal">x</button>
                 </dialog>
             </div>
         </div>
         <div class="task-container"></div>
         <dialog class="change-folder-modal">
             <form class="change-folder-form" id="changeFolderForm">
+                <h3>Change Folder</h3>
                 <label for="change-folder">New Folder</label>
                 <select id="change-folder" name="change-folder"></select>
                 <div id="current-folder"></div>
-                <button type="submit" class="change-folder-modal-button">Change Folder</button>
+                <div class="dialog-buttons-container">
+                    <button type="submit" class="change-folder-modal-button">Change Folder</button>
+                    <button class="close-change-folder-modal">Cancel</button>
+                </div>
             </form>
-            <button class="close-change-folder-modal">x</button>
         </dialog>
         <dialog class="change-deadline-modal">
             <form class="change-deadline-form" id="changeDeadlineForm">
+                <h3>Change Deadline</h3>
                 <label for="change-deadline">New Deadline</label>
                 <input type="date" name="change-deadline" id="change-deadline" required>
                 <div id="current-deadline"></div>
-                <button type="submit" class="change-deadline-modal-button">Change Deadline</button>
+                <div class="dialog-buttons-container">
+                    <button type="submit" class="change-deadline-modal-button">Change Deadline</button>
+                    <button class="close-change-deadline-modal">Cancel</button>
+                </div>
             </form>
-            <button class="close-change-deadline-modal">x</button>
         </dialog>
     </div>
 </body>

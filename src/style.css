@@ -1,8 +1,13 @@
 
+
 :root {
-    --primary-color: #72729a;
+    --primary-color: #50505f;
     --secondary-color: #b2b2c3;
     --tertiary-color: #edebf0;
+    --green-color: rgb(97, 185, 93);
+    --yellow-color: rgb(236, 183, 67);
+    --red-color: rgb(255, 96, 96);
+    --shadow-color: rgb(0, 0, 0, 0.3);
 }
 
 @font-face {
@@ -25,8 +30,14 @@ body {
     margin: 0;
     border: 0;
     font-family: "Poppins Light";
+    color: var(--primary-color);
+    letter-spacing: 1px;
 }
 
+button {
+    font-family: "Poppins Semibold";
+    font-size: 14px;
+}
 
 .screen-container {
     display: grid;
@@ -38,17 +49,24 @@ body {
     background-color: white;
     grid-row: 1 / 2;
     grid-column: 1 / 3;
-    padding-top: 20px;
-    z-index: 2;
-    border-bottom: 3px solid var(--primary-color)
+    z-index: 1;
+    border-bottom: 2px solid var(--primary-color);
+    box-shadow: 0px 8px 15px -10px var(--shadow-color);
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 80px;
+    margin: 0px 30px;
 }
 
 .sidebar {
     grid-row: 2 / 3;
     grid-column: 1 / 2;
     background-color: white;
-    box-shadow: 8px 0px 15px -10px rgb(0, 0, 0, 0.3);
-    z-index: 1;
+    box-shadow: 8px 0px 15px -10px var(--shadow-color);
+    z-index: 2;
     font-size: 10px;
 }
 
@@ -75,22 +93,23 @@ li {
 }
 
 .sidebar .open-task-modal, .sidebar .open-folder-modal {
-    margin-left: 30px;
-    margin-top: 20px;
+    margin: 10px 30px 0px;
 }
+
 
 .open-task-modal, .open-folder-modal {
     border: none;
     border-radius: 3px;
-    background-color: var(--secondary-color);
-    color: white;
+    color: var(--primary-color);
+    font-family: "Poppins Semibold";
     font-size: 18px;
-    font-weight: 600;
-    padding: 10px 15px;
+    background-color: transparent;
+    padding: 0px;
 }
 
+
 .open-task-modal:hover, .open-folder-modal:hover {
-    background-color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .time-period-container {
@@ -99,13 +118,15 @@ li {
 
 .sidebar-heading {
     margin: 0;
-    padding: 12px 30px;
+    padding: 30px 30px 10px;
     font-size: 22px;
-    background-color: var(--primary-color);
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-    color: white;
+    color: var(--primary-color);
     font-family: "Poppins Semibold";
+}
+
+.divider {
+    border-top: 2px solid var(--tertiary-color);
+    margin: 10px 30px 0px 30px;
 }
 
 li span {
@@ -123,17 +144,14 @@ li span {
     display: flex;
     flex-direction: column;
     background-color: white;
-    box-shadow: 0px 12px 20px -10px rgb(0, 0, 0, 0.3);
+    box-shadow: 0px 12px 20px -10px var(--shadow-color);
     border-radius: 5px;
     max-height: 400px;
 }
 
-.task-content {
-    padding: 20px;
-}
 
 .task-priority {
-    padding: 10px 20px;
+    padding: 0px 20px;
     color: white;
     border-radius: 5px 5px 0px 0px;
     display: grid;
@@ -142,27 +160,51 @@ li span {
     align-items: center;
 }
 
+.task-priority h3 {
+    overflow: auto;
+    overflow-wrap: break-word;
+}
+
 .high-priority {
-    background-color: rgb(255, 96, 96);
+    background-color: var(--red-color);
 }
 
 .medium-priority {
-    background-color: rgb(241, 132, 72);
+    background-color: var(--yellow-color);
 }
 
 .low-priority {
-    background-color: rgb(97, 185, 93);
+    background-color: var(--green-color);
 }
 
-.task-delete-button{
-    font-family: Poppins Semibold;
-    color: var(--primary-color);
-    background-color: white;
-    aspect-ratio: 1 / 1;
+.task-delete-button {
     outline: none;
-    border: 2px solid var(--primary-color);
-    border-radius: 3px;
+    border: none;
+    font-family: Poppins Semibold;
+    color: white;
+    font-size: 20px;
+    background-color: transparent;
 }
+
+.task-delete-button:hover {
+    color: var(--primary-color);
+}
+
+.folder-delete-button {
+    outline: none;
+    border: none;
+    font-family: Poppins Semibold;
+    color: var(--secondary-color);
+    font-size: 18px;
+    background-color: transparent;
+    margin: 0px;
+    padding: 0px;
+}
+
+.folder-delete-button:hover {
+    color: var(--primary-color);
+}
+
 
 .sidebar-list-item {
     display: flex;
@@ -176,7 +218,6 @@ li span {
 
 .active-sidebar-item {
     background-color: var(--tertiary-color);
-    color: (var(--primary-color));
     color: var(--primary-color);
 }
 
@@ -184,3 +225,162 @@ h3 {
     font-family: "Poppins Semibold";
 }
 
+.task-content {
+    overflow: auto;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+.task-content p {
+    margin: 20px 20px 0px 20px;
+}
+
+.deadline-container {
+    margin: 20px;
+    font-family: "Poppins Semibold";
+    font-size: 14px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin: auto 20px 20px 20px;
+}
+
+.button-container button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    padding: 0px;
+    font-family: "Poppins Semibold";
+    font-size: 14px;
+    color: var(--secondary-color);
+}
+
+.button-container button:hover {
+    color: var(--primary-color);
+}
+
+form h3 {
+    font-size: 30px;
+    margin: 0px 0px 20px 0px;
+}
+
+label, legend {
+    color: var(--primary-color);
+    font-family: "Poppins Semibold";
+    font-size: 14px;
+    display: block;
+}
+
+input, textarea, select {
+    color: var(--primary-color);
+    background-color: var(--tertiary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 3px;
+    padding: 3px;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+input:invalid, fieldset input:invalid {
+    border: 2px solid var(--red-color);
+}
+
+input:valid, fieldset input:valid {
+    border: 2px solid var(--green-color);
+}
+
+input:focus, textarea:focus, select:focus {
+    border: 2px solid var(--green-color);
+}
+
+fieldset {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    outline: none;
+    border: none;
+    padding: 0px;
+    margin: 10px 0px;
+}
+
+fieldset div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+}
+
+fieldset div input {
+    margin-top: 16px;
+    margin-right: 15px;
+    color: var(--green-color)
+}
+
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: var(--tertiary-color);
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: var(--primary-color);
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+.add-task-modal-button, .add-folder-modal-button, .change-deadline-modal-button, .change-folder-modal-button, dialog button {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+}
+
+.add-task-modal-button:hover, .add-folder-modal-button:hover, .change-deadline-modal-button:hover, .change-folder-modal-button:hover,  dialog button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.task-modal, .folder-modal, .change-folder-modal, .change-deadline-modal {
+    border: none;
+    border-radius: 3px;
+    padding: 40px;
+    box-shadow: 0px 8px 15px -10px rgb(0, 0, 0, 0.7);
+}
+
+#current-deadline, #current-folder {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+dialog button {
+    background-color: var(--red-color);
+}
+
+dialog button:hover {
+    background-color: rgb(208, 68, 68);
+}
+
+.dialog-buttons-container {
+    display: flex;
+    justify-content: space-between;
+}

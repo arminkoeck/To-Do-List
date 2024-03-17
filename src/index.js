@@ -24,18 +24,15 @@ createTask ("Fitness", "Meditate for 30 min", "low", new Date ("February 2, 2025
 addTaskToFolder(7, 8)
 createTask ("Meditation", "Meditate for 30 min", "low", new Date ("January 31, 2025"));
 addTaskToFolder(8, 9)
-createTask ("Programming", "Finish the programming project", "medium", new Date ("March 3, 2026"));
+createTask ("Programming", "Finish the programming project. To finish this programming Project i have to finish the To-Do-List Project i am currently working on. asdfasdfsadfsadfasdfasdfsadfsadfasdfsadfsadf asdfasdfsadfsadfasdfasdfsadfsadfasdfsadfsadf asdfasdfsadfsadfasdfasdfsadfsadfasdfsadfsadfasdfasdfsadfsadfasdfasdfsadfsadfasdfsadfsadf", "medium", new Date ("March 3, 2026"));
 addTaskToFolder(9, 9)
 
 createFolder("Time Tests");
 createFolder("Fitness");
 createFolder("Meditation");
 
-
 displayFolders(getFolders());
-console.log(getFolders());
 displayTasks(getTasks());
-console.log(getTasks());
 
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".open-task-modal").addEventListener("click", () => {
@@ -57,7 +54,6 @@ taskForm.onsubmit = (e) => {
     resetModal(".task-form");
     clearTasks();
     displayCurrentFolder();
-    console.log(getTasks());
 };
 
 folderForm.onsubmit = (e) => {
@@ -68,7 +64,6 @@ folderForm.onsubmit = (e) => {
     displayFolders(getFolders());
     getSidebarEffects ();
     addSidebarFolderLogic();
-    console.log(getFolders());
 };
 
 
@@ -91,9 +86,7 @@ document.addEventListener("changeFolder", function(event) {
     closeButton.addEventListener("click", () => currentFolder.textContent = "");
     changeFolderForm.onsubmit = (e) => {
         const folderId = changeFolder(e);
-        console.log(getTaskFolder(parseInt(taskId)))
         addTaskToFolder (parseInt(taskId), parseInt(folderId));
-        console.log(getTaskFolder(parseInt(taskId)))
         modal.close();
         currentFolder.textContent = "";
         resetModal(".change-folder-form");
@@ -132,8 +125,6 @@ document.addEventListener("taskDelete", function(event) {
     removeTaskFromArray(taskId);
     clearTasks();
     displayCurrentFolder();
-    console.log(getTasks());
-    console.log(getFolders());
 })
 
 function displayCurrentFolder () {
@@ -281,3 +272,4 @@ export function getOverdueTasks (allTasks) {
 
 // add design
 // add local storage
+
