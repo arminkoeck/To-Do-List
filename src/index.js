@@ -1,47 +1,29 @@
 
 import './style.css';
 
-import addNewTask from "./taskManager.js";
-import { getTasks, removeTaskFromArray, removeTaskFromFolders, addTaskToFolder, changePriority, createTask, getFolderTasks, getTaskFolder, changeFolder } from './taskManager.js';
-import addNewFolder from "./folderManager.js";
-import { getFolders, createFolder, removeFolderFromArray, createFolderFormOptions, getTimeFolders } from "./folderManager.js";
-import { displayFolders, displayTasks, openModal, closeModal, closeModalByClick, resetModal, clearTasks, clearFolders, getSidebarEffects, activateAllTaskFolder, getDateValues, getDateValuesInNumbers, getWeek } from "./domFunctions.js";
+import { addNewTask, getTasks, removeTaskFromArray, removeTaskFromFolders, addTaskToFolder, changePriority, createTask, getFolderTasks,
+         getTaskFolder, changeFolder, setLocalMap, getLocalMap, getLocalTasks, setLocalTasks, getLocalNextTaskId, setLocalNextTaskId } from './taskManager.js';
+import { addNewFolder, getFolders, createFolder, removeFolderFromArray, createFolderFormOptions, getTimeFolders, setLocalFolders,
+         getLocalFolders, getLocalNextFolderId, setLocalNextFolderId } from "./folderManager.js";
+import { displayFolders, displayTasks, openModal, closeModal, closeModalByClick, resetModal, clearTasks, clearFolders, getSidebarEffects,
+         activateAllTaskFolder, getDateValues, getDateValuesInNumbers, getWeek } from "./domFunctions.js";
 
-
-createTask ("DayTest", "Do a workout", "high", new Date ("March 8, 2024"));
-addTaskToFolder(1, 7)
-createTask ("WeekTest", "Do a workout", "high", new Date ("March 12, 2024"));
-addTaskToFolder(2, 7)
-createTask ("MonthTest", "Do a workout", "high", new Date ("March 24, 2024"));
-addTaskToFolder(3, 7)
-createTask ("NextMonthTest", "Do a workout", "high", new Date ("April 30, 2024"));
-addTaskToFolder(4, 7)
-createTask ("LongtermTest", "Do a workout", "high", new Date ("May 1, 2024"));
-addTaskToFolder(5, 7)
-createTask ("OverdueTest", "Do a workout", "high", new Date ("May 2, 2022"));
-addTaskToFolder(6, 7)
-createTask ("Fitness", "Meditate for 30 min", "low", new Date ("February 2, 2025"));
-addTaskToFolder(7, 8)
-createTask ("Meditation", "Meditate for 30 min", "low", new Date ("January 31, 2025"));
-addTaskToFolder(8, 9)
-createTask ("Programming", "Finish the programming project. To finish this programming Project i have to finish the To-Do-List Project i am currently working on. asdfasdfsadfsadfasdfasdfsadfsadfasdfsadfsadf asdfasdfsadfsadfasdfasdfsadfsadfasdfsadfsadf asdfasdfsadfsadfasdfasdfsadfsadfasdfsadfsadfasdfasdfsadfsadfasdfasdfsadfsadfasdfsadfsadf", "medium", new Date ("March 3, 2026"));
-addTaskToFolder(9, 9)
-
-createFolder("Time Tests");
-createFolder("Fitness");
-createFolder("Meditation");
-
-displayFolders(getFolders());
-displayTasks(getTasks());
 
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".open-task-modal").addEventListener("click", () => {
         createFolderFormOptions("#form-folders");
     });
+    getLocalMap();
+    getLocalTasks();
+    getLocalFolders();
+    getLocalNextFolderId();
+    getLocalNextTaskId();
     openModal(".open-task-modal", ".task-modal");
     openModal(".open-folder-modal", ".folder-modal");
     closeModalByClick(".close-task-modal", ".task-modal", ".task-form");
     closeModalByClick(".close-folder-modal", ".folder-modal", ".folder-form");
+    displayFolders(getFolders());
+    displayTasks(getTasks());
     getSidebarEffects();
     addSidebarFolderLogic();
     activateAllTaskFolder();
@@ -54,6 +36,7 @@ taskForm.onsubmit = (e) => {
     resetModal(".task-form");
     clearTasks();
     displayCurrentFolder();
+    setLocalStorage()
 };
 
 folderForm.onsubmit = (e) => {
@@ -64,6 +47,7 @@ folderForm.onsubmit = (e) => {
     displayFolders(getFolders());
     getSidebarEffects ();
     addSidebarFolderLogic();
+    setLocalStorage()
 };
 
 
@@ -92,8 +76,10 @@ document.addEventListener("changeFolder", function(event) {
         resetModal(".change-folder-form");
         clearTasks();
         displayCurrentFolder();
+        setLocalStorage()
     };
 });
+
 
 
 document.addEventListener("changeDeadline", function(event) {
@@ -116,6 +102,7 @@ document.addEventListener("changeDeadline", function(event) {
         resetModal(".change-deadline-form");
         clearTasks();
         displayCurrentFolder();
+        setLocalStorage()
     };
 });
 
@@ -125,6 +112,7 @@ document.addEventListener("taskDelete", function(event) {
     removeTaskFromArray(taskId);
     clearTasks();
     displayCurrentFolder();
+    setLocalStorage()
 })
 
 function displayCurrentFolder () {
@@ -151,6 +139,7 @@ document.addEventListener("folderDelete", function(event) {
     } else {
         return;
     };
+    setLocalStorage()
 });
 
 function addSidebarFolderLogic () {
@@ -269,7 +258,18 @@ export function getOverdueTasks (allTasks) {
 };
 
 
+function setLocalStorage() {
+    setLocalTasks();
+    setLocalFolders();
+    setLocalMap();
+    setLocalNextFolderId();
+    setLocalNextTaskId();
+};
 
-// add design
-// add local storage
+
+
+
+
+
+
 

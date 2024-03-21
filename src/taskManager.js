@@ -1,11 +1,70 @@
 
 
 let taskArray = [];
-const taskFolderMap = new Map();
+let taskFolderMap = new Map();
 
 export function getMap () {
     return taskFolderMap;
 }
+
+export function getLocalMap() {
+    const storageMap = localStorage.getItem("taskMap");
+    if (storageMap) {
+        const savedMap = new Map(JSON.parse(storageMap));
+        taskFolderMap = savedMap;
+    } else {
+        setLocalMap();
+    }
+}
+
+export function setLocalMap() {
+    localStorage.setItem("taskMap", JSON.stringify([...taskFolderMap]));
+}
+
+
+function convertDatesToString(tasks) {
+    return tasks.map(task => ({
+        ...task,
+        deadline: task.deadline.toISOString()
+    }));
+}
+
+function convertStringsToDateObjects(tasks) {
+    return tasks.map(task => ({
+        ...task,
+        deadline: new Date(task.deadline)
+    }));
+}
+
+
+export function setLocalTasks() {
+    const stringTasks = convertDatesToString(taskArray);
+    localStorage.setItem("Tasks", JSON.stringify(stringTasks));
+}
+
+
+export function getLocalTasks() {
+    const storageTasks = JSON.parse(localStorage.getItem("Tasks"));
+    if (storageTasks) {
+        taskArray = convertStringsToDateObjects(storageTasks);
+    } else {
+        setLocalTasks();
+    }
+}
+
+export function setLocalNextTaskId() {
+    localStorage.setItem("NextTaskId", JSON.stringify(nextTaskId));
+}
+
+export function getLocalNextTaskId() {
+    const storageNextTaskId = JSON.parse(localStorage.getItem("NextTaskId"));
+    if (storageNextTaskId) {
+        nextTaskId = storageNextTaskId
+    } else {
+        setLocalNextTaskId();
+    }
+}
+
 
 function addTaskToArray (task) {
     taskArray.unshift(task);
@@ -20,6 +79,7 @@ export function removeTaskFromArray (taskId) {
 }
 
 let nextTaskId = 1;
+
 
 // can also be used to change the folder
 export function addTaskToFolder (taskId, folderId) {
@@ -38,7 +98,7 @@ export function createTask (name, description, priority, deadline, folderId) {
     addTaskToFolder(newTask.id, folderId)
 };
 
-export default function addNewTask(e) {
+export function addNewTask(e) {
     e.preventDefault();
     const name = document.querySelector("#task-name").value;
     const description = document.querySelector("#task-description").value;
